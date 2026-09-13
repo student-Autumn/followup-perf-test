@@ -1,0 +1,19 @@
+-
+  feature: 角色管理
+  story: 更新角色
+  title: 更新角色信息成功
+  request:
+    method: post
+    url: ${evn(base_url)}/role/update
+    json:
+      id: ${read_extract(realRoleId)}
+      roleName: "测试角色-已更新"
+      roleKey: "test_role_updated"
+      description: "压测更新的角色描述"
+      dataScope: 2
+      status: 1
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]
+      - 更新返回true: ["json[data]", true]

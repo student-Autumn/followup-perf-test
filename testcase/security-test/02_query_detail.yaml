@@ -1,0 +1,12 @@
+-
+  feature: 安全测试管理
+  story: 获取用户答题记录
+  title: 根据病人ID获取安全测试答题详情成功
+  request:
+    method: get
+    url: ${evn(base_url)}/security-test/answers/${read_extract(realPatientId)}
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]
+      - 病人ID匹配: ["json[data][patientId]", "${read_extract(realPatientId)}"]

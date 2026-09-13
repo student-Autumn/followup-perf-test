@@ -1,0 +1,38 @@
+-
+  feature: 调查问卷管理
+  story: 创建问卷
+  title: 创建问卷成功
+  request:
+    method: post
+    url: ${evn(base_url)}/survey/create
+    json:
+      title: "测试调查问卷-压测"
+      questions:
+        - content: "您对本次筛查服务的满意度如何？"
+          questionType: 1
+          options:
+            - key: "A"
+              label: "非常满意"
+            - key: "B"
+              label: "满意"
+            - key: "C"
+              label: "一般"
+            - key: "D"
+              label: "不满意"
+          sortOrder: 1
+        - content: "您是否会推荐他人参加本次筛查？"
+          questionType: 1
+          options:
+            - key: "A"
+              label: "会"
+            - key: "B"
+              label: "不会"
+            - key: "C"
+              label: "不确定"
+          sortOrder: 2
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]
+  extract:
+    surveyId: [json, "$.data", 0]

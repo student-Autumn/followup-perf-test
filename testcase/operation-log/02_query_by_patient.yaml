@@ -1,0 +1,11 @@
+-
+  feature: 操作日志管理
+  story: 根据病人ID查询操作记录
+  title: 根据病人ID查询操作记录成功
+  request:
+    method: get
+    url: ${evn(base_url)}/operation-log/patient/${read_extract(realPatientId)}
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]

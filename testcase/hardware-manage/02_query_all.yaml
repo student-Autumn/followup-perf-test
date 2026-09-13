@@ -1,0 +1,11 @@
+-
+  feature: 硬件管理
+  story: 查询所有硬件管理
+  title: 查询所有硬件管理列表成功
+  request:
+    method: get
+    url: ${evn(base_url)}/hardware-manage/all
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]

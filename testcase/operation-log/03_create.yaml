@@ -1,0 +1,20 @@
+-
+  feature: 操作日志管理
+  story: 创建操作记录
+  title: 创建操作记录成功
+  request:
+    method: post
+    url: ${evn(base_url)}/operation-log/create
+    json:
+      operationTime: "2026-06-17 10:00:00"
+      operationType: "巡检"
+      type: "常规操作"
+      operator: "测试员"
+      patientId: ${read_extract(realPatientId)}
+      operatorId: ${read_extract(realOperatorId)}
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]
+  extract:
+    opLogId: [json, "$.data", 0]

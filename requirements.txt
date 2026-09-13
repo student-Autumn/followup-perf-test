@@ -1,0 +1,13 @@
+pytest
+pytest-html
+pytest-xdist
+pytest-ordering
+pytest-rerunfailures
+pytest-base-url
+allure-pytest
+requests
+jsonpath
+pyyaml
+iniconfig
+prometheus_client
+locust

@@ -1,0 +1,46 @@
+-
+  feature: 随访管理
+  story: 分页查询随访人员记录
+  title: 分页查询随访人员记录-默认分页
+  request:
+    method: post
+    url: ${evn(base_url)}/followup/record/list
+    json:
+      pageNum: 1
+      pageSize: 10
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]
+      - 当前页码为1: ["json[data][current]", 1]
+      - 每页大小为10: ["json[data][size]", 10]
+-
+  feature: 随访管理
+  story: 分页查询随访人员记录
+  title: 按姓名筛选随访人员记录
+  request:
+    method: post
+    url: ${evn(base_url)}/followup/record/list
+    json:
+      pageNum: 1
+      pageSize: 10
+      name: "张三"
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]
+-
+  feature: 随访管理
+  story: 分页查询随访人员记录
+  title: 按阳性级别筛选随访人员记录
+  request:
+    method: post
+    url: ${evn(base_url)}/followup/record/list
+    json:
+      pageNum: 1
+      pageSize: 10
+      positiveLevel: "阳性"
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]

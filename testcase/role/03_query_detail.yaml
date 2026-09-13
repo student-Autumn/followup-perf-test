@@ -1,0 +1,11 @@
+-
+  feature: 角色管理
+  story: 查询角色详情
+  title: 根据ID查询角色详情成功
+  request:
+    method: get
+    url: ${evn(base_url)}/role/detail/${read_extract(realRoleId)}
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]

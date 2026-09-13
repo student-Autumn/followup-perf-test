@@ -1,0 +1,30 @@
+-
+  feature: 随访管理
+  story: 发送病人通知
+  title: 发送常规通知成功
+  request:
+    method: post
+    url: ${evn(base_url)}/followup/record/send-notification
+    json:
+      patientId: ${read_extract(realPatientId)}
+      content: "您的随访报告已生成，请及时查看"
+      isUrgent: false
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]
+-
+  feature: 随访管理
+  story: 发送病人通知
+  title: 发送紧急通知成功
+  request:
+    method: post
+    url: ${evn(base_url)}/followup/record/send-notification
+    json:
+      patientId: ${read_extract(realPatientId)}
+      content: "您的复查时间已过，请尽快联系医生"
+      isUrgent: true
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]

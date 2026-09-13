@@ -1,0 +1,46 @@
+-
+  feature: 系统日志管理
+  story: 分页查询系统日志
+  title: 分页查询系统日志-默认分页
+  request:
+    method: post
+    url: ${evn(base_url)}/system/log/list
+    json:
+      pageNum: 1
+      pageSize: 10
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]
+      - 当前页码为1: ["json[data][current]", 1]
+      - 每页大小为10: ["json[data][size]", 10]
+-
+  feature: 系统日志管理
+  story: 分页查询系统日志
+  title: 按类型筛选查询系统日志
+  request:
+    method: post
+    url: ${evn(base_url)}/system/log/list
+    json:
+      pageNum: 1
+      pageSize: 10
+      type: "ERROR"
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]
+-
+  feature: 系统日志管理
+  story: 分页查询系统日志
+  title: 按关键字搜索系统日志
+  request:
+    method: post
+    url: ${evn(base_url)}/system/log/list
+    json:
+      pageNum: 1
+      pageSize: 10
+      keyword: "登录"
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]

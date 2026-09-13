@@ -1,0 +1,12 @@
+-
+  feature: 调查问卷管理
+  story: 查询问卷详情
+  title: 根据ID查询问卷详情成功
+  request:
+    method: get
+    url: ${evn(base_url)}/survey/detail/${read_extract(realSurveyId)}
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]
+      - 问卷ID匹配: ["json[data][id]", "${read_extract(realSurveyId)}"]

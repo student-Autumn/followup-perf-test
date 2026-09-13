@@ -1,0 +1,12 @@
+-
+  feature: 硬件管理
+  story: 删除硬件管理记录
+  title: 删除硬件管理记录成功
+  request:
+    method: post
+    url: ${evn(base_url)}/hardware-manage/delete/${read_extract(hardwareManageId)}
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]
+      - 删除返回true: ["json[data]", true]

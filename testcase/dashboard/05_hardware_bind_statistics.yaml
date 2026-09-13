@@ -1,0 +1,11 @@
+-
+  feature: 仪表盘管理
+  story: 获取总绑卡数量统计
+  title: 获取总绑卡数量统计成功
+  request:
+    method: get
+    url: ${evn(base_url)}/dashboard/statistics/hardware-bind
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]

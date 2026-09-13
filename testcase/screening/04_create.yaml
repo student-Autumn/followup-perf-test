@@ -1,0 +1,24 @@
+-
+  feature: 筛查管理
+  story: 创建筛查人员记录
+  title: 创建筛查人员记录成功
+  request:
+    method: post
+    url: ${evn(base_url)}/screen/record/create
+    json:
+      patientName: "测试李四"
+      idNo: "${timestamp()}"
+      gender: 1
+      age: 35
+      screenNo: "SC${timestamp()}"
+      screenProject: "肠癌筛查"
+      screenProjectId: ${read_extract(realScreenProjectId)}
+      screenDate: "2026-06-23"
+      bindCardDate: "2026-06-23"
+      bindCardNo: "CARD${timestamp()}"
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]
+  extract:
+    screenRecordId: [json, "$.data", 0]

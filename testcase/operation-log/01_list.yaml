@@ -1,0 +1,31 @@
+-
+  feature: 操作日志管理
+  story: 分页查询操作记录
+  title: 分页查询操作记录成功-默认分页
+  request:
+    method: post
+    url: ${evn(base_url)}/operation-log/list
+    json:
+      pageNum: 1
+      pageSize: 10
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]
+      - 当前页码为1: ["json[data][current]", 1]
+      - 每页大小为10: ["json[data][size]", 10]
+-
+  feature: 操作日志管理
+  story: 分页查询操作记录
+  title: 按操作类型筛选查询
+  request:
+    method: post
+    url: ${evn(base_url)}/operation-log/list
+    json:
+      pageNum: 1
+      pageSize: 10
+      operationType: "巡检"
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]

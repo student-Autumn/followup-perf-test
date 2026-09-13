@@ -1,0 +1,11 @@
+-
+  feature: 机构管理
+  story: 获取所有机构
+  title: 获取所有机构列表成功
+  request:
+    method: get
+    url: ${evn(base_url)}/organization/all
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]

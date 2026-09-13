@@ -1,0 +1,14 @@
+-
+  feature: 角色管理
+  story: 更新角色数据权限
+  title: 更新角色数据权限成功
+  request:
+    method: post
+    url: ${evn(base_url)}/role/data-permission/update
+    json:
+      roleId: ${read_extract(realRoleId)}
+      dataScope: 1
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]

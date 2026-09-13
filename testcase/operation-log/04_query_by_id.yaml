@@ -1,0 +1,12 @@
+-
+  feature: 操作日志管理
+  story: 根据ID查询操作记录
+  title: 根据ID查询操作记录成功
+  request:
+    method: get
+    url: ${evn(base_url)}/operation-log/${read_extract(opLogId)}
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]
+      - ID匹配: ["json[data][id]", "${read_extract(opLogId)}"]

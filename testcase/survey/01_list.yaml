@@ -1,0 +1,29 @@
+-
+  feature: 调查问卷管理
+  story: 分页查询问卷
+  title: 分页查询问卷-默认分页
+  request:
+    method: post
+    url: ${evn(base_url)}/survey/list
+    json:
+      pageNum: 1
+      pageSize: 10
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]
+-
+  feature: 调查问卷管理
+  story: 分页查询问卷
+  title: 按标题模糊查询问卷
+  request:
+    method: post
+    url: ${evn(base_url)}/survey/list
+    json:
+      pageNum: 1
+      pageSize: 10
+      title: "${read_extract(realSurveyTitle)}"
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]

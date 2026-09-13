@@ -1,0 +1,46 @@
+-
+  feature: 机构管理
+  story: 分页查询机构列表
+  title: 分页查询机构-默认分页
+  request:
+    method: post
+    url: ${evn(base_url)}/organization/list
+    json:
+      pageNum: 1
+      pageSize: 10
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]
+      - 当前页码为1: ["json[data][current]", 1]
+      - 每页大小为10: ["json[data][size]", 10]
+-
+  feature: 机构管理
+  story: 分页查询机构列表
+  title: 按机构类型筛选查询
+  request:
+    method: post
+    url: ${evn(base_url)}/organization/list
+    json:
+      pageNum: 1
+      pageSize: 10
+      orgType: 1
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]
+-
+  feature: 机构管理
+  story: 分页查询机构列表
+  title: 按机构名称模糊查询
+  request:
+    method: post
+    url: ${evn(base_url)}/organization/list
+    json:
+      pageNum: 1
+      pageSize: 10
+      orgName: "${read_extract(realOrgName)}"
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]

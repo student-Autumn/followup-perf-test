@@ -1,0 +1,17 @@
+-
+  feature: 调查问卷管理
+  story: 提交答卷
+  title: 提交问卷答卷成功
+  request:
+    method: post
+    url: ${evn(base_url)}/survey/submit
+    json:
+      userId: ${read_extract(realPatientId)}
+      surveyId: ${read_extract(surveyId)}
+      answerJson:
+        q_1: ["A"]
+        q_2: ["B"]
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]

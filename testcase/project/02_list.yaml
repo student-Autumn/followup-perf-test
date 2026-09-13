@@ -1,0 +1,29 @@
+-
+  feature: 项目管理
+  story: 分页查询项目
+  title: 分页查询项目-默认分页
+  request:
+    method: post
+    url: ${evn(base_url)}/project/list
+    json:
+      pageNum: 1
+      pageSize: 10
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]
+-
+  feature: 项目管理
+  story: 分页查询项目
+  title: 按项目名称模糊查询
+  request:
+    method: post
+    url: ${evn(base_url)}/project/list
+    json:
+      pageNum: 1
+      pageSize: 10
+      projectName: "${read_extract(realProjectName)}"
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]

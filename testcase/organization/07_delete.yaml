@@ -1,0 +1,12 @@
+-
+  feature: 机构管理
+  story: 删除机构
+  title: 删除机构成功
+  request:
+    method: post
+    url: ${evn(base_url)}/organization/delete/${read_extract(orgId)}
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]
+      - 删除返回true: ["json[data]", true]

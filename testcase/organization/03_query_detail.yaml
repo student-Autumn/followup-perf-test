@@ -1,0 +1,12 @@
+-
+  feature: 机构管理
+  story: 查询机构详情
+  title: 根据ID查询机构详情成功
+  request:
+    method: get
+    url: ${evn(base_url)}/organization/detail/${read_extract(realOrgId)}
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]
+      - 机构ID匹配: ["json[data][id]", "${read_extract(realOrgId)}"]

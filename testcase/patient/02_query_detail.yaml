@@ -1,0 +1,11 @@
+-
+  feature: 病人管理
+  story: 查询病人详情
+  title: 根据病人ID查询病人信息成功
+  request:
+    method: get
+    url: ${evn(base_url)}/patient/${read_extract(realPatientId)}
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]

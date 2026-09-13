@@ -1,0 +1,12 @@
+-
+  feature: 筛查管理
+  story: 删除筛查记录
+  title: 删除筛查记录成功
+  request:
+    method: post
+    url: ${evn(base_url)}/screen/record/delete/${read_extract(screenRecordId)}
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]
+      - 删除返回true: ["json[data]", true]

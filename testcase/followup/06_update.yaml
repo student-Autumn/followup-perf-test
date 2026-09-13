@@ -1,0 +1,23 @@
+-
+  feature: 随访管理
+  story: 修改随访病人记录
+  title: 修改随访病人记录成功
+  request:
+    method: post
+    url: ${evn(base_url)}/followup/record/update
+    json:
+      reportId: ${read_extract(realReportId)}
+      patientId: ${read_extract(realPatientId)}
+      address: "浙江省杭州市西湖区"
+      emergencyContact: "李四"
+      emergencyPhone: "13800001111"
+      followupLevel: "一级"
+      followupCycle: "每月"
+      patientDisease: "肠癌术后"
+      positiveLevel: "阳性"
+      interventionMeasures: "定期复查"
+      interpretationResult: "建议进一步检查"
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]

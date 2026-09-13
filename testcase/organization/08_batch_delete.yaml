@@ -1,0 +1,12 @@
+-
+  feature: 机构管理
+  story: 批量删除机构
+  title: 批量删除机构成功
+  request:
+    method: post
+    url: ${evn(base_url)}/organization/batch/delete
+    json:
+      - ${read_extract(realOrgId)}
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]

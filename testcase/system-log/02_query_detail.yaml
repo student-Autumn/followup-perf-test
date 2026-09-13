@@ -1,0 +1,11 @@
+-
+  feature: 系统日志管理
+  story: 获取系统日志详情
+  title: 根据ID获取系统日志详情成功
+  request:
+    method: get
+    url: ${evn(base_url)}/system/log/1
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]

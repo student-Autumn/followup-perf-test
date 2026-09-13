@@ -1,0 +1,14 @@
+-
+  feature: 硬件管理
+  story: 批量删除硬件管理记录
+  title: 批量删除硬件管理记录成功
+  request:
+    method: post
+    url: ${evn(base_url)}/hardware-manage/batch/delete
+    json:
+      - ${read_extract(realHardwareManageId)}
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]
+      - 批量删除返回true: ["json[data]", true]

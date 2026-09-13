@@ -1,0 +1,19 @@
+-
+  feature: 机构管理
+  story: 新增机构
+  title: 新增机构成功
+  request:
+    method: post
+    url: ${evn(base_url)}/organization/create
+    json:
+      orgName: "测试机构-压测"
+      orgType: 1
+      regionId: ${read_extract(realOrgId)}
+      contactPerson: "测试联系人"
+      contactInfo: "13800000000"
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]
+  extract:
+    orgId: [json, "$.data", 0]

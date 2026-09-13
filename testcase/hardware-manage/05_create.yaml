@@ -1,0 +1,16 @@
+-
+  feature: 硬件管理
+  story: 创建硬件管理记录
+  title: 创建硬件管理记录成功
+  request:
+    method: post
+    url: ${evn(base_url)}/hardware-manage/create
+    json:
+      hardwareNo: "HW${read_extract(realHardwareManageId)}"
+      hardwareType: 1
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]
+  extract:
+    hardwareManageId: [json, "$.data", 0]

@@ -1,0 +1,14 @@
+-
+  feature: 调查问卷管理
+  story: 批量删除问卷
+  title: 批量删除问卷成功
+  request:
+    method: post
+    url: ${evn(base_url)}/survey/delete/batch
+    json:
+      - ${read_extract(realSurveyId)}
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]
+      - 删除返回true: ["json[data]", true]

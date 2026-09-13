@@ -1,0 +1,12 @@
+-
+  feature: 项目管理
+  story: 删除项目
+  title: 根据ID删除项目成功
+  request:
+    method: post
+    url: ${evn(base_url)}/project/delete/${read_extract(projectId)}
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]
+      - 删除返回true: ["json[data]", true]

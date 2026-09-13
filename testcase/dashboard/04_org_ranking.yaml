@@ -1,0 +1,26 @@
+-
+  feature: 仪表盘管理
+  story: 获取机构筛查排行
+  title: 获取最近一个月机构筛查排行成功
+  request:
+    method: get
+    url: ${evn(base_url)}/dashboard/statistics/org-ranking
+    params:
+      rankType: 1
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]
+-
+  feature: 仪表盘管理
+  story: 获取机构筛查排行
+  title: 获取最近一个季度机构筛查排行成功
+  request:
+    method: get
+    url: ${evn(base_url)}/dashboard/statistics/org-ranking
+    params:
+      rankType: 2
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]

@@ -1,0 +1,14 @@
+-
+  feature: 项目管理
+  story: 批量删除项目
+  title: 批量删除项目成功
+  request:
+    method: post
+    url: ${evn(base_url)}/project/delete/batch
+    json:
+      - ${read_extract(realProjectId)}
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]
+      - 删除返回true: ["json[data]", true]

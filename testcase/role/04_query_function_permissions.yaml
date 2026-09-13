@@ -1,0 +1,11 @@
+-
+  feature: 角色管理
+  story: 获取角色菜单权限
+  title: 获取角色菜单权限ID列表成功
+  request:
+    method: get
+    url: ${evn(base_url)}/role/function-permissions/${read_extract(realRoleId)}
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]

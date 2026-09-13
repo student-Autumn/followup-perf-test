@@ -1,0 +1,49 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+
+# Virtual env
+venv/
+.venv/
+env/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# Test artifacts
+temps/
+extract.yaml
+.auth_token.yaml
+report*.html
+.test_created_ids.json
+
+# Allure
+allure-report/
+allure-results/
+
+# OS
+.DS_Store
+Thumbs.db
+*.msi
+
+# Generated / binary
+report/
+perftest/k6.exe
+perftest/k6-summary.json
+perftest/real_data.json
+perftest/report_data.json
+testcase/_real_data.json
+
+# Generated reports (root)
+压测报告.md
+压测报告.docx
+压测场景.doc
+*.html
+
+# Claude
+.claude/

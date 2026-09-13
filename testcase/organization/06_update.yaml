@@ -1,0 +1,18 @@
+-
+  feature: 机构管理
+  story: 更新机构信息
+  title: 更新机构信息成功
+  request:
+    method: post
+    url: ${evn(base_url)}/organization/update
+    json:
+      id: ${read_extract(orgId)}
+      orgType: 1
+      regionId: ${read_extract(realOrgId)}
+      contactPerson: "更新联系人"
+      contactInfo: "13900000000"
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]
+      - 更新返回true: ["json[data]", true]

@@ -1,0 +1,12 @@
+-
+  feature: 硬件管理
+  story: 根据硬件编号查询
+  title: 根据硬件编号查询硬件管理详情成功
+  request:
+    method: get
+    url: ${evn(base_url)}/hardware-manage/by-hardware-no/${read_extract(realHardwareNo)}
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]
+      - 硬件编号匹配: ["json[data][hardwareNo]", "${read_extract(realHardwareNo)}"]

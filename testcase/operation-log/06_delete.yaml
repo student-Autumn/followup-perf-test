@@ -1,0 +1,12 @@
+-
+  feature: 操作日志管理
+  story: 删除操作记录
+  title: 删除操作记录成功
+  request:
+    method: post
+    url: ${evn(base_url)}/operation-log/delete/${read_extract(opLogId)}
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]
+      - 删除返回true: ["json[data]", true]

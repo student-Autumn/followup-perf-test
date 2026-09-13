@@ -1,0 +1,11 @@
+-
+  feature: 随访管理
+  story: 查询呼叫记录
+  title: 根据病人ID查询呼叫记录成功
+  request:
+    method: get
+    url: ${evn(base_url)}/followup/record/call-records/${read_extract(realFollowupPatientId)}
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]

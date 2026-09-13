@@ -1,0 +1,11 @@
+-
+  feature: 筛查管理
+  story: 根据病人ID查询筛查记录
+  title: 根据病人ID查询筛查记录列表成功
+  request:
+    method: get
+    url: ${evn(base_url)}/screen/record/list/patient/${read_extract(realPatientId)}
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]

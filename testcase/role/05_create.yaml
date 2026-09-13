@@ -1,0 +1,18 @@
+-
+  feature: 角色管理
+  story: 添加角色
+  title: 添加角色成功
+  request:
+    method: post
+    url: ${evn(base_url)}/role/add
+    json:
+      roleName: "perf_${random_str(6)}"
+      roleKey: "perf_${random_str(6)}"
+      description: "压测创建的测试角色"
+      dataScope: 1
+      status: 1
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]
+      - 创建返回true: ["json[data]", true]

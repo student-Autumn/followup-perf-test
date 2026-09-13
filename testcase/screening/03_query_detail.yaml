@@ -1,0 +1,12 @@
+-
+  feature: 筛查管理
+  story: 获取筛查人员记录详情
+  title: 根据记录ID获取详情成功
+  request:
+    method: get
+    url: ${evn(base_url)}/screen/record/detail/${read_extract(realScreenRecordId)}
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]
+      - 记录ID匹配: ["json[data][screenRecord][id]", "${read_extract(realScreenRecordId)}"]

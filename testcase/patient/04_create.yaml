@@ -1,0 +1,21 @@
+-
+  feature: 病人管理
+  story: 创建病人信息
+  title: 创建病人信息成功
+  request:
+    method: post
+    url: ${evn(base_url)}/patient/create
+    json:
+      name: "测试病人"
+      age: 30
+      gender: 1
+      idNo: "${timestamp()}"
+      address: "测试地址"
+      emergencyContact: "紧急联系人"
+      emergencyPhone: "13800138000"
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]
+  extract:
+    patientId: [json, "$.data", 0]

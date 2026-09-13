@@ -1,0 +1,32 @@
+-
+  feature: 安全测试管理
+  story: 保存用户答题记录
+  title: 保存安全测试答题记录成功
+  request:
+    method: post
+    url: ${evn(base_url)}/security-test/answers
+    json:
+      patientId: ${read_extract(realPatientId)}
+      submitTime: "2026-06-23T10:00:00"
+      answers:
+        - questionNo: 1
+          question: "您是否有高血压病史？"
+          answer: 0
+        - questionNo: 2
+          question: "您是否有糖尿病病史？"
+          answer: 1
+        - questionNo: 3
+          question: "您是否有心脏病史？"
+          answer: 0
+        - questionNo: 4
+          question: "您是否有吸烟习惯？"
+          answer: 1
+        - questionNo: 5
+          question: "您是否有饮酒习惯？"
+          answer: 0
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]
+  extract:
+    securityTestAnswerId: [json, "$.data", 0]

@@ -1,0 +1,11 @@
+-
+  feature: 项目管理
+  story: 查询所有项目
+  title: 获取所有未删除的项目列表
+  request:
+    method: get
+    url: ${evn(base_url)}/project/all
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]

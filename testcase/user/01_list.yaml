@@ -1,0 +1,29 @@
+-
+  feature: 用户管理
+  story: 分页查询用户列表
+  title: 分页查询用户-默认分页
+  request:
+    method: get
+    url: ${evn(base_url)}/user/list
+    params:
+      pageNum: 1
+      pageSize: 10
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]
+-
+  feature: 用户管理
+  story: 分页查询用户列表
+  title: 按用户名模糊查询用户
+  request:
+    method: get
+    url: ${evn(base_url)}/user/list
+    params:
+      pageNum: 1
+      pageSize: 10
+      username: "${read_extract(realUsername)}"
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]

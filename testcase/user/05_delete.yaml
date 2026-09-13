@@ -1,0 +1,12 @@
+-
+  feature: 用户管理
+  story: 删除用户
+  title: 根据ID删除用户成功
+  request:
+    method: post
+    url: ${evn(base_url)}/user/delete/${read_extract(realUserId)}
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]
+      - 删除返回true: ["json[data]", true]

@@ -1,0 +1,11 @@
+-
+  feature: 随访管理
+  story: 获取随访人员记录详情
+  title: 根据报告ID获取随访详情成功
+  request:
+    method: get
+    url: ${evn(base_url)}/followup/record/detail/${read_extract(realReportId)}
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]

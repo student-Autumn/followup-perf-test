@@ -1,0 +1,20 @@
+-
+  feature: 操作日志管理
+  story: 更新操作记录
+  title: 更新操作记录成功
+  request:
+    method: post
+    url: ${evn(base_url)}/operation-log/update
+    json:
+      id: ${read_extract(opLogId)}
+      operationTime: "2026-06-17 12:00:00"
+      operationType: "巡检-已更新"
+      type: "常规操作-已更新"
+      operator: "测试员-已更新"
+      patientId: ${read_extract(realPatientId)}
+      operatorId: ${read_extract(realOperatorId)}
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]
+      - 更新返回true: ["json[data]", true]

@@ -1,0 +1,20 @@
+-
+  feature: 项目管理
+  story: 创建项目
+  title: 创建项目成功
+  request:
+    method: post
+    url: ${evn(base_url)}/project/create
+    json:
+      projectName: "测试项目-压测"
+      projectStatus: 1
+      screenDate: "2026-06-23"
+      hospitalIds: ${read_extract(realHospitalIds)}
+      organizationId: ${read_extract(realProjectOrgId)}
+      regionId: ${read_extract(realRegionId)}
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]
+  extract:
+    projectId: [json, "$.data", 0]

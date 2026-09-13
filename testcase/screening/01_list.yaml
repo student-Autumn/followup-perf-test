@@ -1,0 +1,46 @@
+-
+  feature: 筛查管理
+  story: 分页查询筛查人员记录
+  title: 分页查询筛查人员记录-默认分页
+  request:
+    method: post
+    url: ${evn(base_url)}/screen/record/list
+    json:
+      pageNum: 1
+      pageSize: 10
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]
+      - 当前页码为1: ["json[data][current]", 1]
+      - 每页大小为10: ["json[data][size]", 10]
+-
+  feature: 筛查管理
+  story: 分页查询筛查人员记录
+  title: 按患者姓名筛选查询
+  request:
+    method: post
+    url: ${evn(base_url)}/screen/record/list
+    json:
+      pageNum: 1
+      pageSize: 10
+      patientName: "${read_extract(realPatientName)}"
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]
+-
+  feature: 筛查管理
+  story: 分页查询筛查人员记录
+  title: 按筛查项目筛选查询
+  request:
+    method: post
+    url: ${evn(base_url)}/screen/record/list
+    json:
+      pageNum: 1
+      pageSize: 10
+      screenProjectId: ${read_extract(realScreenProjectId)}
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]

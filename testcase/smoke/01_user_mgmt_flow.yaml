@@ -1,0 +1,140 @@
+# ============================================================
+# 冒烟测试：用户管理核心链路
+# 流程：创建机构 → 创建角色 → 查询角色拿到ID → 创建用户 → 查询用户拿到ID → 查询验证 → 清理
+# 注意：role/add 和 user/create 返回 data:true(boolean)，需额外查询步骤获取ID
+# ============================================================
+
+- feature: 冒烟-用户管理流程
+  story: 创建机构
+  title: 步骤1-创建测试机构
+  request:
+    method: POST
+    url: ${evn(base_url)}/organization/create
+    json:
+      orgName: "[AUTO]冒烟机构_${timestamp()}"
+      orgType: 1
+      regionId: 1
+      address: "杭州市西湖区测试地址"
+      contactPerson: "冒烟联系人"
+      contactInfo: ${random_phone()}
+  extract:
+    smk_org_id: [json, "$.data", 0]
+  validate:
+    eq:
+      - 状态码200: [status_code, 200]
+      - 创建成功: ["json[success]", true]
+
+- feature: 冒烟-用户管理流程
+  story: 创建角色
+  title: 步骤2-创建测试角色（roleKey用机构ID保证唯一）
+  request:
+    method: POST
+    url: ${evn(base_url)}/role/add
+    json:
+      roleName: "[AUTO]冒R_${read_extract(smk_org_id)}"
+      roleKey: "smk_r_${read_extract(smk_org_id)}"
+      description: "冒烟测试创建的测试角色"
+      dataScope: 1
+      status: 1
+  validate:
+    eq:
+      - 状态码200: [status_code, 200]
+      - 创建成功: ["json[success]", true]
+
+- feature: 冒烟-用户管理流程
+  story: 查询角色
+  title: 步骤3-查询角色列表拿到角色ID
+  request:
+    method: POST
+    url: ${evn(base_url)}/role/list
+    json:
+      roleName: "[AUTO]冒R_${read_extract(smk_org_id)}"
+      pageNum: 1
+      pageSize: 10
+  extract:
+    smk_role_id: [json, "$.data.records[0].id", 0]
+  validate:
+    eq:
+      - 状态码200: [status_code, 200]
+      - 查询成功: ["json[success]", true]
+
+- feature: 冒烟-用户管理流程
+  story: 创建用户
+  title: 步骤4-创建测试用户（关联机构+角色）
+  request:
+    method: POST
+    url: ${evn(base_url)}/user/create
+    json:
+      username: "[AUTO]冒烟用户_${read_extract(smk_org_id)}"
+      loginAccount: ${random_phone()}
+      phone: ${random_phone()}
+      gender: 1
+      orgId: ${read_extract(smk_org_id)}
+      status: 0
+      roleIds:
+        - ${read_extract(smk_role_id)}
+  validate:
+    eq:
+      - 状态码200: [status_code, 200]
+      - 创建成功: ["json[success]", true]
+
+- feature: 冒烟-用户管理流程
+  story: 查询用户
+  title: 步骤5-查询用户列表拿到用户ID
+  request:
+    method: GET
+    url: ${evn(base_url)}/user/list
+    params:
+      username: "[AUTO]冒烟用户_${read_extract(smk_org_id)}"
+      pageNum: 1
+      pageSize: 10
+  extract:
+    smk_user_id: [json, "$.data.records[0].id", 0]
+  validate:
+    eq:
+      - 状态码200: [status_code, 200]
+      - 查询成功: ["json[success]", true]
+
+- feature: 冒烟-用户管理流程
+  story: 查询用户详情
+  title: 步骤6-验证用户详情接口正常
+  request:
+    method: GET
+    url: ${evn(base_url)}/user/detail/${read_extract(smk_user_id)}
+  validate:
+    eq:
+      - 状态码200: [status_code, 200]
+      - 用户存在: ["json[success]", true]
+
+- feature: 冒烟-用户管理流程
+  story: 清理-删除用户
+  title: 步骤7-删除测试用户
+  request:
+    method: POST
+    url: ${evn(base_url)}/user/delete/${read_extract(smk_user_id)}
+  validate:
+    eq:
+      - 状态码200: [status_code, 200]
+      - 删除成功: ["json[success]", true]
+
+- feature: 冒烟-用户管理流程
+  story: 清理-删除角色
+  title: 步骤8-删除测试角色
+  request:
+    method: POST
+    url: ${evn(base_url)}/role/delete/${read_extract(smk_role_id)}
+  validate:
+    eq:
+      - 状态码200: [status_code, 200]
+      - 删除成功: ["json[success]", true]
+
+- feature: 冒烟-用户管理流程
+  story: 清理-删除机构
+  title: 步骤9-删除测试机构
+  request:
+    method: POST
+    url: ${evn(base_url)}/organization/delete/${read_extract(smk_org_id)}
+  validate:
+    eq:
+      - 状态码200: [status_code, 200]
+      - 删除成功: ["json[success]", true]

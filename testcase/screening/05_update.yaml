@@ -1,0 +1,16 @@
+-
+  feature: 筛查管理
+  story: 更新筛查人员信息
+  title: 更新筛查人员信息成功
+  request:
+    method: post
+    url: ${evn(base_url)}/screen/record/update
+    json:
+      patientId: ${read_extract(realPatientId)}
+      address: "浙江省杭州市西湖区"
+      emergencyContact: "李四"
+      emergencyPhone: "13800001111"
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]

@@ -1,0 +1,19 @@
+-
+  feature: 用户管理
+  story: 修改用户
+  title: 修改用户信息成功
+  request:
+    method: post
+    url: ${evn(base_url)}/user/update
+    json:
+      id: ${read_extract(realUserId)}
+      username: "测试用户-已更新"
+      loginAccount: ${read_extract(realUserPhone)}
+      phone: ${read_extract(realUserPhone)}
+      roleIds:
+        - ${read_extract(realRoleId)}
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]
+      - 更新返回true: ["json[data]", true]

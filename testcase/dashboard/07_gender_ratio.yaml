@@ -1,0 +1,11 @@
+-
+  feature: 仪表盘管理
+  story: 获取性别比例统计
+  title: 获取性别比例统计成功
+  request:
+    method: get
+    url: ${evn(base_url)}/dashboard/statistics/gender-ratio
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]

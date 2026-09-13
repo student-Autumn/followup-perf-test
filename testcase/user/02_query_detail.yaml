@@ -1,0 +1,12 @@
+-
+  feature: 用户管理
+  story: 查询用户详情
+  title: 根据ID查询用户详情成功
+  request:
+    method: get
+    url: ${evn(base_url)}/user/detail/${read_extract(realUserId)}
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]
+      - 用户ID匹配: ["json[data][id]", "${read_extract(realUserId)}"]

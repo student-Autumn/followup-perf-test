@@ -1,0 +1,12 @@
+-
+  feature: 角色管理
+  story: 删除角色
+  title: 删除角色成功
+  request:
+    method: post
+    url: ${evn(base_url)}/role/delete/${read_extract(realRoleId)}
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]
+      - 删除返回true: ["json[data]", true]

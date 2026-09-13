@@ -1,0 +1,16 @@
+-
+  feature: 调查问卷管理
+  story: 更新问卷
+  title: 更新问卷信息成功
+  request:
+    method: post
+    url: ${evn(base_url)}/survey/update
+    json:
+      id: ${read_extract(surveyId)}
+      title: "测试调查问卷-已更新"
+      status: 1
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]
+      - 更新返回true: ["json[data]", true]

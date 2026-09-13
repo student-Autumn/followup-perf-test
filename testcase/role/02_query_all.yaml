@@ -1,0 +1,11 @@
+-
+  feature: 角色管理
+  story: 查询所有角色
+  title: 查询所有角色列表成功
+  request:
+    method: get
+    url: ${evn(base_url)}/role/all
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]

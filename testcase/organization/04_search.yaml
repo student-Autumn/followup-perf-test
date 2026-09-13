@@ -1,0 +1,27 @@
+-
+  feature: 机构管理
+  story: 按名称搜索机构
+  title: 按机构名称模糊搜索成功
+  request:
+    method: get
+    url: ${evn(base_url)}/organization/search
+    params:
+      orgName: ${read_extract(realOrgName)}
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]
+-
+  feature: 机构管理
+  story: 按名称搜索机构
+  title: 按名称和类型搜索机构
+  request:
+    method: get
+    url: ${evn(base_url)}/organization/search
+    params:
+      orgName: ${read_extract(realOrgName)}
+      orgType: 1
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]

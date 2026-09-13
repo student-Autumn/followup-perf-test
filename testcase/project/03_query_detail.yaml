@@ -1,0 +1,12 @@
+-
+  feature: 项目管理
+  story: 查询项目详情
+  title: 根据ID查询项目详情成功
+  request:
+    method: get
+    url: ${evn(base_url)}/project/detail/${read_extract(realProjectId)}
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]
+      - 项目ID匹配: ["json[data][id]", "${read_extract(realProjectId)}"]

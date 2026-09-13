@@ -1,0 +1,14 @@
+-
+  feature: 角色管理
+  story: 更新角色菜单权限
+  title: 为角色分配菜单权限成功
+  request:
+    method: post
+    url: ${evn(base_url)}/role/function-permission/update
+    json:
+      roleId: ${read_extract(realRoleId)}
+      functionPermissionIds: []
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]

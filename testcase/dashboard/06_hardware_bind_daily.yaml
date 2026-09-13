@@ -1,0 +1,14 @@
+-
+  feature: 仪表盘管理
+  story: 获取硬件绑定日统计
+  title: 获取硬件绑定日统计成功
+  request:
+    method: get
+    url: ${evn(base_url)}/dashboard/statistics/hardware-bind-daily
+    params:
+      startDate: "2026-06-17"
+      endDate: "2026-06-24"
+  validate:
+    eq:
+      - 状态码为200: [status_code, 200]
+      - 响应成功: ["json[success]", true]

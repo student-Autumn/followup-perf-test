@@ -1,0 +1,1 @@
+allure_project_name="测试报告"
